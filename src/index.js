@@ -25,6 +25,7 @@ import App from './App';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
+import 'firebase/storage';
 import theme from './theme';
 
 const middleware = [
@@ -58,6 +59,7 @@ firebase.initializeApp({
 
 firebase.firestore();
 firebase.functions();
+firebase.storage();
 
 ReactDOM.render(
   <Provider store={store}>

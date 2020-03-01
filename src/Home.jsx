@@ -10,8 +10,10 @@ import {
 import Alert from '@material-ui/lab/Alert';
 // import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import Card from '@material-ui/core/Card';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardHeader from '@material-ui/core/CardHeader';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // import CloseIcon from '@material-ui/icons/Close';
 import Container from '@material-ui/core/Container';
@@ -55,6 +57,24 @@ function Home() {
   const samples = useSelector((state) => state.firestore.ordered.mySamples);
   const devices = useSelector((state) => state.firestore.ordered.myDevices);
 
+  const onClickDeleteSample = (e, sample) => {
+    e.preventDefault();
+    console.log('onClickDeleteSample');
+    console.log(sample);
+  };
+
+  const onClickAssignSample = (e, device) => {
+    e.preventDefault();
+    console.log('onClickAssignSample');
+    console.log(device);
+  };
+
+  const onClickDeleteDevice = (e, device) => {
+    e.preventDefault();
+    console.log('onClickDeleteDevice');
+    console.log(device);
+  };
+
   if (!isLoaded(auth)) {
     return (
       <div className={classes.root}>
@@ -75,63 +95,129 @@ function Home() {
     );
   }
 
-  // if (isEmpty(auth)) {
-  //   return (
-  //     <div className={classes.root}>
-  //       <Container maxWidth="md">
-  //         <Typography variant="h1" component="h1" gutterBottom>
-  //           <b>LIARBIRD</b>
-  //         </Typography>
-  //         <Login
-  //           classes={classes}
-  //         />
-  //         <About classes={classes} />
-  //       </Container>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className={classes.root}>
       <Container maxWidth="md">
-        <Typography variant="h1" component="h1" gutterBottom>
-          <b>LIARBIRD</b>
-        </Typography>
-        <Typography variant="h2" component="h2" gutterBottom>
-          <b>Registered Devices</b>
-        </Typography>
-        {devices && devices.length === 0 && (
-          <Alert severity="warning">
-            No Devices Registered Yet
-          </Alert>
-        )}
-        {devices && devices.map((device) => (
-          <div key={device.id}>
-
-          </div>
-        ))}
-        <Typography variant="h3" component="h3" gutterBottom>
-          <b>Adding Devices</b>
-        </Typography>
-        <Typography variant="h2" component="h2" gutterBottom>
-          <b>Audio Samples</b>
-        </Typography>
-        <Typography variant="h3" component="h3" gutterBottom>
-          <b>Saved Samples</b>
-        </Typography>
-        {samples && samples.length === 0 && (
-          <Alert severity="warning">
-            No Samples Uploaded Yet
-          </Alert>
-        )}
-        {samples && samples.map((sample) => (
-          <div key={sample.id}>
-
-          </div>
-        ))}
-        <Typography variant="h3" component="h3" gutterBottom>
-          <b>Upload Sample</b>
-        </Typography>
+        <Grid>
+          <Grid item xs={12}>
+            <Typography variant="h2" component="h1">
+              <b>LIARBIRD</b>
+            </Typography>
+            <Typography variant="h5" component="p" gutterBottom className={classes.subtitle}>
+              FIELD PLAYBACK SYSTEM
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h3" component="h2" gutterBottom>
+              <b>Registered Devices</b>
+            </Typography>
+          </Grid>
+          {devices && devices.length === 0 && (
+            <Grid item xs={12}>
+              <Alert severity="warning">
+                No Devices Registered Yet
+              </Alert>
+            </Grid>
+          )}
+          {devices && devices.map((device) => (
+            <Grid item xs={12} sm={6} md={4} key={device.id}>
+              <Card className={classes.card}>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {device.uid}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  {/* {new Date(device.createdAt).toISOString()} */}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  Sample: {device.sample || 'None'}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={(e) => onClickAssignSample(e, device)}
+                  color="primary"
+                >
+                  Assign Sample
+                </Button>
+                <Button
+                  size="small"
+                  onClick={(e) => onClickDeleteDevice(e, device)}
+                  color="secondary"
+                >
+                  Delete Device
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          ))}
+          <Grid item xs={12}>
+            <Typography variant="h4" component="h3" gutterBottom>
+              <b>Adding Devices</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h3" component="h2" gutterBottom>
+              <b>Audio Samples</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h4" component="h3" gutterBottom>
+              <b>Saved Samples</b>
+            </Typography>
+          </Grid>
+          {samples && samples.length === 0 && (
+            <Grid item xs={12}>
+              <Alert severity="warning">
+                No Samples Uploaded Yet
+              </Alert>
+            </Grid>
+          )}
+          {samples && samples.map((sample) => (
+            <Grid item xs={12} sm={6} md={4} key={sample.id}>
+              <Card className={classes.card}>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {sample.title}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  {/* {new Date(sample.createdAt).toISOString()} */}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={(e) => onClickDeleteSample(e, sample)}
+                  color="secondary"
+                >
+                  Delete Sample
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          ))}
+          <Grid item xs={12}>
+            <Typography variant="h4" component="h3" gutterBottom>
+              <b>Upload Sample</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <form className={classes.formFields} noValidate autoComplete="off">
+              <Button
+                variant="contained"
+                component="label"
+                color="primary"
+              >
+                Choose File
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                />
+              </Button>
+            </form>
+          </Grid>
+        </Grid>
       </Container>
     </div>
   );

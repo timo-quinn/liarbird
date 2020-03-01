@@ -10,8 +10,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   card: {
-    textAlign: 'center',
-    minWidth: 275,
+    // minWidth: 275,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  loginFields: {
+  formFields: {
     margin: theme.spacing(1),
   },
   centered: {
