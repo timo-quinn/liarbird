@@ -1,4 +1,17 @@
 
+## Installation
+
+Just run:
+
+`yarn`
+
+## Development
+
+To start the development website, run:
+
+`yarn start`
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Deployment
 
@@ -11,11 +24,3 @@ You will need to define the key for the devices before the firebase functions ca
 `firebase functions:config:set deviceAuthKey="<some value>"`
 
 The deviceAuthKey should never be saved in the repo. It's just a safeguard to prevent configuration being changed without authorization for the managed devices in the field.
-
-## Development
-
-To start the development website, run:
-
-`yarn start`
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
