@@ -193,16 +193,19 @@ function Home() {
     <div className={classes.root}>
       <Container maxWidth="md">
         <Grid container spacing={1}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Typography variant="h2" component="h1">
-              <b>LIARBIRD</b>
+            <b>LIARBIRD</b>
             </Typography>
             <Typography variant="h5" component="p" gutterBottom className={classes.subtitle}>
-              FIELD PLAYBACK SYSTEM
+            FIELD PLAYBACK SYSTEM
             </Typography>
+          </Grid> */}
+          <Grid item xs={12} style={{ textAlign: 'center' }}>
+            <img src="/logo-transparent.png" alt="liarbird logo" className={classes.logo} />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h4" component="h2" gutterBottom>
+            <Typography variant="h5" component="h2" gutterBottom>
               <b>Registered Devices</b>
             </Typography>
             <Typography variant="body1" component="p">
@@ -220,7 +223,7 @@ function Home() {
             <Grid item xs={12} sm={6} md={4} key={device.id}>
               <Card className={classes.card}>
               <CardContent>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h6" component="h2">
                   {device.uid}
                 </Typography>
                 {device.createdAt ? (
@@ -267,12 +270,12 @@ function Home() {
           </Grid>
           ))}
           <Grid item xs={12}>
-            <Typography variant="h4" component="h2">
+            <Typography variant="h5" component="h2">
               <b>Audio Samples</b>
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h5" component="h3">
+            <Typography variant="h6" component="h3">
               <b>Saved Samples</b>
             </Typography>
             <Typography variant="subtitle1" component="p">
@@ -290,7 +293,7 @@ function Home() {
             <Grid item xs={12} sm={6} md={4} key={sample.id}>
               <Card className={classes.card}>
               <CardContent>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h6" component="h2">
                   {sample.title}
                 </Typography>
                 <Typography variant="body2" component="p">
@@ -320,7 +323,7 @@ function Home() {
             </Grid>
           )}
           <Grid item xs={12}>
-            <Typography variant="h5" component="h3">
+            <Typography variant="h6" component="h3">
               <b>Upload New Sample</b>
             </Typography>
           </Grid>
@@ -356,10 +359,13 @@ function Home() {
               {showUploadProgress && (<LinearProgress variant="determinate" value={uploadProgress} />)}
             </form>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{ textAlign: 'center' }}>
             <Typography variant="overline" display="block" gutterBottom>
               &copy; 2020 Matt Chaumont &amp; Timothy Quinn
             </Typography>
+          </Grid>
+          <Grid item xs={12} style={{ textAlign: 'center' }}>
+            <img src="/liarbird2-transparent.png" alt="liarbird logo alt" className={classes.logo2} />
           </Grid>
         </Grid>
       </Container>

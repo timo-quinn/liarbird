@@ -39,8 +39,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   logo: {
-    maxWidth: 160,
-    paddingLeft: theme.spacing(2),
+    maxWidth: 270,
+    justifyContent: 'center',
+  },
+  logo2: {
+    maxWidth: 200,
     justifyContent: 'center',
   },
   title: {

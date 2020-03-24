@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 const fs = require('fs');
 
-const authKey = '';
+const authKey = ''; // get the auth key out of lastpass, or pull it from the firestore config
 
 let configFileCreated;
 let createConfigFile;
