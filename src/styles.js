@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     // minWidth: 275,
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   cardLeft: {
     textAlign: 'left',
