@@ -21,6 +21,6 @@ To deploy all project components, run:
 
 You will need to define the key for the devices before the firebase functions can be deployed:
 
-`firebase functions:config:set deviceAuthKey="<some value>"`
+`firebase functions:config:set device.authkey="<some value>"`
 
-The deviceAuthKey should never be saved in the repo. It's just a safeguard to prevent configuration being changed without authorization for the managed devices in the field.
+The device authkey should never be saved in the repo. It's just a safeguard to prevent configuration being changed without authorization for the managed devices in the field.

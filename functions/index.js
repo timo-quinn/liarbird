@@ -13,12 +13,13 @@ const generateId = (length) => {
   return toReturn;
 };
 
-exports.registerDevice = functions.https.onRequest((request, response) => {
+exports.registerDevice = functions.https.onRequest(async (request, response) => {
   // auth check
   if (!request.body) {
     return response.status(412).end();
   }
   if (request.body && request.body.authKey !== authKey) {
+    console.log(request.body);
     return response.status(401).end();
   }
 
@@ -26,19 +27,14 @@ exports.registerDevice = functions.https.onRequest((request, response) => {
   // check the payload for sufficient info
   // generate a unique device id for it
   // add the record to the database
-  admin.firestore().collection('devices')
-    .add({
-      uid: newId,
-      createdAt: Date.now(),
-    })
-    .then(() => {
-      // return the device id to the device for it to store in itself
-      return response.status(200).send({ uid: newId });
-    })
-    .catch((error) => {
-      console.error(error);
-      return response.status(500).end();
-    });
+  try {
+    await admin.firestore().collection('devices').add({ uid: newId, createdAt: Date.now() });
+
+    return response.status(200).send({ uid: newId });
+  } catch (error) {
+    console.error(error);
+    return response.status(500).end(); // unknown error
+  }
 });
 
 exports.getConfiguration = functions.https.onRequest(async (request, response) => {
@@ -47,9 +43,11 @@ exports.getConfiguration = functions.https.onRequest(async (request, response) =
     return response.status(412).end();
   }
   if (request.body && !request.body.uid) {
+    console.log(request.body);
     return response.status(412).end();
   }
   if (request.body && request.body.authKey !== authKey) {
+    console.log(request.body);
     return response.status(401).end();
   }
 
