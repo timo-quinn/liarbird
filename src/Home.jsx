@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import FileUploader from 'react-firebase-file-uploader';
 import {
@@ -33,13 +33,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import useStyles from './styles';
 
 function Home() {
-  const [sampleName, setSampleName] = React.useState('');
-  const [uploadProgress, setUploadProgess] = React.useState(0);
-  const [showUploadProgress, setShowUploadProgress] = React.useState(false);
-  const [selectedDevice, setSelectedDevice] = React.useState(undefined);
-  const [showEditDeviceDialog, setShowEditDeviceDialog] = React.useState(false);
-  const [playbackFrequency, setPlaybackFrequency] = React.useState('');
-  const [errorMessage, setErrorMessage] = React.useState(undefined);
+  const [sampleName, setSampleName] = useState('');
+  const [uploadProgress, setUploadProgess] = useState(0);
+  const [showUploadProgress, setShowUploadProgress] = useState(false);
+  const [selectedDevice, setSelectedDevice] = useState(undefined);
+  const [showEditDeviceDialog, setShowEditDeviceDialog] = useState(false);
+  const [playbackFrequency, setPlaybackFrequency] = useState('');
+  const [errorMessage, setErrorMessage] = useState(undefined);
   const classes = useStyles();
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -251,9 +251,9 @@ function Home() {
                 </Typography>
                   <Typography variant="body2" component="p">
                     {device.playbackFrequency ? (
-                      `Frequency: ${device.playbackFrequency}`
+                      `Interval: ${device.playbackFrequency}`
                     ) : (
-                      'Frequency: 10'
+                      'Interval: 10'
                     )}
                 </Typography>
               </CardContent>
@@ -303,7 +303,7 @@ function Home() {
                   Uploaded: {new Date(sample.createdAt).toDateString()} {new Date(sample.createdAt).toLocaleTimeString()}
                 </Typography>
               </CardContent>
-              <CardActions>
+              {/* <CardActions>
                 <Button
                   size="small"
                   onClick={(e) => onClickDeleteSample(e, sample)}
@@ -311,7 +311,7 @@ function Home() {
                 >
                   Delete Sample
                 </Button>
-              </CardActions>
+              </CardActions> */}
             </Card>
           </Grid>
           ))}
@@ -361,7 +361,7 @@ function Home() {
           </Grid>
           <Grid item xs={12} style={{ textAlign: 'center' }}>
             <Typography variant="overline" display="block" gutterBottom>
-              &copy; 2020 Matt Chaumont &amp; Timothy Quinn
+              &copy; {new Date().getFullYear()} Matt Chaumont &amp; Timothy Quinn
             </Typography>
           </Grid>
           <Grid item xs={12} style={{ textAlign: 'center' }}>
@@ -396,13 +396,12 @@ function Home() {
             </List>
           <DialogContent>
           </DialogContent>
-            
             <Typography variant="body1" component="p">
-              Set Playback Frequency (in Minutes):
+              Set Playback Interval (in Minutes):
             </Typography>
             <form onSubmit={(e) => onSubmitPlaybackFrequency(e, selectedDevice)}>
               <TextField
-                label="Playback Frequency"
+                label="Playback Interval"
                 placeholder="10"
                 margin="dense"
                 fullWidth
@@ -415,7 +414,7 @@ function Home() {
                 color="primary"
                 variant="contained"
               >
-                Save Frequency
+                Save Interval
               </Button>
             </form>
             {errorMessage && (
@@ -423,7 +422,6 @@ function Home() {
                 {errorMessage}
               </Alert>
             )}
-
           </DialogContent>
         </Dialog>
       )}
