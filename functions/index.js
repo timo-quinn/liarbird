@@ -43,7 +43,10 @@ exports.registerDevice = functions.https.onRequest((request, response) => {
 
 exports.getConfiguration = functions.https.onRequest(async (request, response) => {
   // auth check
-  if (!request.body && !request.body.uid) {
+  if (!request.body) {
+    return response.status(412).end();
+  }
+  if (request.body && !request.body.uid) {
     return response.status(412).end();
   }
   if (request.body && request.body.authKey !== authKey) {
@@ -57,9 +60,10 @@ exports.getConfiguration = functions.https.onRequest(async (request, response) =
       return response.status(412).end(); // failed precondition
     } else {
       let docData;
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach(async (doc) => {
         console.log(doc.id);
         docData = doc.data();
+        await admin.firestore().collection('devices').doc(doc.id).set({ checkedIn: Date.now() }, { merge: true });
       });
       return response.status(200).send(docData);
     }
@@ -67,33 +71,4 @@ exports.getConfiguration = functions.https.onRequest(async (request, response) =
     console.error(error);
     return response.status(500).end(); // unknown error
   }
-});
-
-exports.phoneHome = functions.https.onRequest(async (request, response) => {
-  // auth check
-  if (!request.body && !request.body.uid) {
-    return response.status(412).end(); // failed precondition
-  }
-  if (request.body && request.body.authKey !== authKey) {
-    return response.status(401).end(); // unauthorized
-  }
-  try {
-    const querySnapshot = await admin.firestore().collection('devices').where('uid', '==', request.body.uid).limit(1).get();
-    console.log(querySnapshot);
-    if (querySnapshot.empty) {
-      return response.status(412).end(); // failed precondition
-    } else {
-      querySnapshot.forEach(async (doc) => {
-        console.log(doc.id);
-        console.log(doc.data());
-        await admin.firestore().collection('devices').doc(doc.id).set({ checkedIn: Date.now() }, { merge: true });
-      });
-      
-      return response.status(200).end();
-    }
-  } catch (error) {
-    console.error(error);
-    return response.status(500).end(); // unknown error
-  }
-
 });
