@@ -172,7 +172,6 @@ function Home() {
   if (!isLoaded(auth)) {
     return (
       <div className={classes.root}>
-        {/* <StaticMenu /> */}
         <Container maxWidth="md">
           <Card
             style={{ textAlign: 'center' }}
@@ -184,7 +183,6 @@ function Home() {
             </Typography>
           </Card>
         </Container>
-        {/* <PageFooter classes={classes} /> */}
       </div>
     );
   }
@@ -193,14 +191,6 @@ function Home() {
     <div className={classes.root}>
       <Container maxWidth="md">
         <Grid container spacing={1}>
-          {/* <Grid item xs={12}>
-            <Typography variant="h2" component="h1">
-            <b>LIARBIRD</b>
-            </Typography>
-            <Typography variant="h5" component="p" gutterBottom className={classes.subtitle}>
-            FIELD PLAYBACK SYSTEM
-            </Typography>
-          </Grid> */}
           <Grid item xs={12} style={{ textAlign: 'center' }}>
             <img src="/logo-transparent.png" alt="liarbird logo" className={classes.logo} />
           </Grid>
@@ -253,7 +243,7 @@ function Home() {
                     {device.playbackFrequency ? (
                       `Interval: ${device.playbackFrequency}`
                     ) : (
-                      'Interval: 10'
+                      'Interval Not Defined!'
                     )}
                 </Typography>
               </CardContent>
